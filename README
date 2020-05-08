@@ -1,0 +1,35 @@
+Liam Creedon
+lcreedo1
+README hw4
+
+I ran a handful of tests, primarily on the data sets gcc.trace and swim.trace.
+
+*NOTE: I don't believe that my FIFO/LRU distinction was correct in code so
+the results I got were not able to effectively compare the functionality of
+these methods.*
+
+I obviously looked at the different combinations of write allocate, no write
+allocate, write through, and write back, as well as varying number of sets,
+blocks, and bytes.
+I noted that a fully associative cache, while performing similarly in terms
+of hits and misses, had considerably slower run time than direct mapping and
+set associative, so I ruled this out as the most effective.
+When write allocate versus no write allocate was the only difference in a test
+I ran, write allocate had fewer misses every time, so I can also rule out
+no write allocate as most effective.
+Using write back with write allocate yielded the exact same hit and miss rate
+as write allocate and write through, but the cycle count was significantly
+lower.
+So, I have that the most effective combination of inputs is:
+    -write-allocate and write-back
+    -either a set associative or directly mapped cache
+
+I would have been able to better identify the most effective cache if my program
+were fully functional.
+I feel that if the FIFO/LRU distinction was working that LRU would function
+better since the results that we are looking to access many times should remain
+in the cache. This would effect cycles by probably lowering it using lru
+for items that would be put back into memory (increasing cycles) if they were
+accessed on some sort of constant time frame. Also, the hit count would be
+higher because the items we want to see the most frequently, would be at easy
+access.
